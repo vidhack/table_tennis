@@ -13,9 +13,26 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from rest_framework import routers
+
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+
+from player import urls as player_urls
+from player import views as player_views
+
+from tournament import urls as tournament_urls
+from tournament import views as tournament_views
+
+
+router = routers.DefaultRouter()
+router.register(r'player', player_views.PlayerViewSet)
+router.register(r'tournament', tournament_views.TournamentViewSet)
+router.register(r'tournament_move', tournament_views.TournamentMoveViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(r'api/', include(router.urls))
+#    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
+

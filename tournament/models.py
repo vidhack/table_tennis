@@ -16,7 +16,7 @@ class Tournament(BasicConfiguration):
     player2 = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='player2_tournament')
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    result = models.CharField(max_length=20, choices = TOURNAMENT_RESULT)
+    result = models.CharField(max_length=20, choices = TOURNAMENT_RESULT, blank=True, null=True)
     winner = models.ForeignKey(Player, blank=True, null=True, on_delete=models.CASCADE)
     # this field will keep updating after updating TournamentMove, possibaly by post_save signal
     player_turn = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='player_turn')
